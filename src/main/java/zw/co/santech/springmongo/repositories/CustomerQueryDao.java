@@ -2,6 +2,7 @@ package zw.co.santech.springmongo.repositories;
 
 import com.mongodb.client.result.DeleteResult;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -10,20 +11,25 @@ import zw.co.santech.springmongo.models.Customer;
 
 import java.util.List;
 
+/**
+ * @author Sanders
+ *
+ */
+
 @Repository
 @AllArgsConstructor
+@Slf4j
 public class CustomerQueryDao {
 
     private final MongoTemplate mongoTemplate;
 
     public boolean save(Customer customer) {
+        log.info("Inside save method of query dao class");
 
-        Query query = new Query();
-        query.addCriteria(Criteria.where("id").is(customer.getId()));
-        Customer cust = this.mongoTemplate.findOne(query, Customer.class);
+        Customer cust = findOne(customer.getId());
 
         if (cust == null) {
-            this.mongoTemplate.insert(customer);
+            this.mongoTemplate.save(customer);
             return true;
         }
         return false;

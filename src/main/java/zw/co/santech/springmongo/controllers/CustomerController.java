@@ -18,7 +18,7 @@ public class CustomerController {
     @PostMapping
     public ResponseEntity<Customer> save(@RequestBody Customer customer) {
         if (this.customerService.save(customer)) {
-            return ResponseEntity.status(200).body(customer);
+            return ResponseEntity.status(201).body(customer);
         }else {
             return ResponseEntity.status(400).build();
         }
@@ -29,7 +29,7 @@ public class CustomerController {
         return ResponseEntity.status(200).body(this.customerService.findAll());
     }
 
-    @GetMapping("{/id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Customer> findOne(@PathVariable("id") String id) {
         Customer customer = this.customerService.findOne(id);
         if (customer != null) {
