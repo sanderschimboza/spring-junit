@@ -24,8 +24,6 @@ public class CustomerQueryDao {
     private final MongoTemplate mongoTemplate;
 
     public boolean save(Customer customer) {
-        log.info("Inside save method of query dao class");
-
         Customer cust = findOne(customer.getId());
 
         if (cust == null) {

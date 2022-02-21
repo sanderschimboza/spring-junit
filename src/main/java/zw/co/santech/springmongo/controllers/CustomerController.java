@@ -38,12 +38,12 @@ public class CustomerController {
         return ResponseEntity.status(404).build();
     }
 
-    @GetMapping("/{lastName}")
+    @GetMapping("/users/{lastName}")
     public ResponseEntity<List<Customer>> findByLastNameLike(@PathVariable("lastName") String lastName) {
         return ResponseEntity.status(200).body(this.customerService.findByLastNameLike(lastName));
     }
 
-    @GetMapping("/{email}")
+    @GetMapping("/users/{email}")
     public ResponseEntity<Customer> findByEmail(@PathVariable("email") String email) {
         Customer customer = this.customerService.findByEmail(email);
         if (customer != null) {
