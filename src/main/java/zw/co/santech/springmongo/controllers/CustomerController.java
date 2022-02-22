@@ -9,7 +9,7 @@ import zw.co.santech.springmongo.services.CustomerService;
 import java.util.List;
 
 @RestController
-@RequestMapping("vi/api/customers")
+@RequestMapping("v1/api/customers")
 @AllArgsConstructor
 public class CustomerController {
 
@@ -43,7 +43,7 @@ public class CustomerController {
         return ResponseEntity.status(200).body(this.customerService.findByLastNameLike(lastName));
     }
 
-    @GetMapping("/users/{email}")
+    @GetMapping("/email/{email}")
     public ResponseEntity<Customer> findByEmail(@PathVariable("email") String email) {
         Customer customer = this.customerService.findByEmail(email);
         if (customer != null) {

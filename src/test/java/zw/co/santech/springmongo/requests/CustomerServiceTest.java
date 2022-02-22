@@ -45,6 +45,9 @@ public class CustomerServiceTest {
     @Autowired
     private MockMvc mockMvc;
 
+    /**
+     * @throws Exception It tests add Customer
+     */
     @Test
     @Order(1)
     public void addCustomersTest() throws Exception {
@@ -52,28 +55,26 @@ public class CustomerServiceTest {
         /**Create Customer with id 101**/
 
         Address address = new Address("Zim", 200L, "Harare");
-        Customer customer = new Customer("101", "Noreen", "Sanders", "nono@santech.co.uk", "0782898667", Gender.FEMALE, address, Arrays.asList("Amazula 2L", "Ice 1KG", "Ice Cream 5L"), BigDecimal.TEN, "2022-02-20");
+        Customer customer = new Customer("101", "Nono", "Sanders", "nono@santech.co.uk", "0782898667", Gender.FEMALE, address, Arrays.asList("Amazula 2L", "Ice 1KG", "Ice Cream 5L"), BigDecimal.TEN, "2022-02-20");
         String json = new ObjectMapper().writeValueAsString(customer);
 
         mockMvc.perform
-                (post("/vi/api/customers")
+                (post("/v1/api/customers")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(json))
                 .andExpect(status().isCreated());
-
 
         /**Create Customer with id 102**/
 
-        address = new Address("SA", 670L, "Harare");
-        customer = new Customer("102", "Kimberly", "Simpson", "kim@santech.co.uk", "0774627559", Gender.FEMALE, address, Arrays.asList("Ciroc 1L", "Ice 1KG", "Ice Cream 5L"), BigDecimal.TEN, "2022-02-19");
+        address = new Address("Zim", 200L, "Harare");
+        customer = new Customer("102", "Tarie", "Sanders", "tarie@santech.co.uk", "0774627559", Gender.FEMALE, address, Arrays.asList("Ciroc 1L", "Ice 1KG", "Ice Cream 5L"), BigDecimal.valueOf(35), "2022-02-22");
         json = new ObjectMapper().writeValueAsString(customer);
 
         mockMvc.perform
-                (post("/vi/api/customers")
+                (post("/v1/api/customers")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(json))
                 .andExpect(status().isCreated());
-
     }
 
     /**
@@ -83,31 +84,54 @@ public class CustomerServiceTest {
     @Order(2)
     public void addAlreadyExistingCustomerTest() throws Exception {
 
-        /**Create Customer with id 102**/
-
         Address address = new Address("Zim", 200L, "Harare");
-        Customer customer = new Customer("102", "Kimberly", "Simpson", "kim@santech.co.uk", "0774627559", Gender.FEMALE, address, Arrays.asList("Ciroc 1L", "Ice 1KG", "Ice Cream 5L"), BigDecimal.TEN, "2022-02-19");
+        Customer customer = new Customer("101", "Kimberly", "Simpson", "kim@santech.co.uk", "0774627559", Gender.FEMALE, address, Arrays.asList("Ciroc 1L", "Ice 1KG", "Ice Cream 5L"), BigDecimal.TEN, "2022-02-19");
         String json = new ObjectMapper().writeValueAsString(customer);
 
         mockMvc.perform
-                (post("/vi/api/customers")
+                (post("/v1/api/customers")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(json))
                 .andExpect(status().isBadRequest());
     }
 
+    /**
+     * @throws Exception It tests find customer by id
+     */
     @Test
     @Order(3)
     public void findCustomerById() throws Exception {
-        mockMvc.perform(get("/vi/api/customers/101"))
+        mockMvc.perform(get("/v1/api/customers/101"))
                 .andExpect(status().isOk());
     }
 
-
+    /**
+     * @throws Exception It tests find customer by Non-existing id
+     */
     @Test
     @Order(4)
     public void findCustomerByNonExistingId() throws Exception {
-        mockMvc.perform(get("/vi/api/customers/105"))
+        mockMvc.perform(get("/v1/api/customers/105"))
                 .andExpect(status().isNotFound());
+    }
+
+    /**
+     * @throws Exception It tests find customer name like
+     */
+    @Test
+    @Order(5)
+    public void findByLastNameLike() throws Exception {
+        mockMvc.perform(get("/v1/api/customers/users/Sand"))
+                .andExpect(status().isOk());
+    }
+
+    /**
+     * @throws Exception It tests find all customers
+     */
+    @Test
+    @Order(6)
+    public void findAllCustomers() throws Exception {
+        mockMvc.perform(get("/v1/api/customers"))
+                .andExpect(status().isOk());
     }
 }
