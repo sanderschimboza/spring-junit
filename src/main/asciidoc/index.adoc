@@ -1,0 +1,53 @@
+= Spring-JUnit Documentation By Sanders
+
+== The following end-point is for creating a new customer
+
+.request
+include::{snippets}/addCustomersTest/curl-request.adoc[]
+include::{snippets}/addCustomersTest/http-request.adoc[]
+.response
+include::{snippets}/addCustomersTest/http-response.adoc[]
+
+== The following end-point explains the creation of an already existing customer
+
+.request
+include::{snippets}/addAlreadyExistingCustomerTest/curl-request.adoc[]
+include::{snippets}/addAlreadyExistingCustomerTest/http-request.adoc[]
+.response
+include::{snippets}/addAlreadyExistingCustomerTest/http-response.adoc[]
+
+== The following end-point finds a customer by customer id from db
+
+.request
+include::{snippets}/findCustomerByIdTest/curl-request.adoc[]
+include::{snippets}/findCustomerByIdTest/http-request.adoc[]
+.response
+include::{snippets}/findCustomerByIdTest/http-response.adoc[]
+
+== The following end-point explains the fetching of a non-existing customer from the db
+
+.request
+include::{snippets}/findCustomerByNonExistingIdTest/curl-request.adoc[]
+include::{snippets}/findCustomerByNonExistingIdTest/http-request.adoc[]
+.response
+include::{snippets}/findCustomerByNonExistingIdTest/http-response.adoc[]
+
+== The following end-point fetches customers by characters similar to the customer last names in the db
+
+.request
+include::{snippets}/findByLastNameLikeTest/curl-request.adoc[]
+include::{snippets}/findByLastNameLikeTest/http-request.adoc[]
+.response
+include::{snippets}/findByLastNameLikeTest/http-response.adoc[]
+
+== The following end-point fetches all customers from the database
+
+.request
+include::{snippets}/findAllCustomerTest/curl-request.adoc[]
+include::{snippets}/findAllCustomerTest/http-request.adoc[]
+.response
+include::{snippets}/findAllCustomerTest/http-response.adoc[]
+
+
+
+Spring-mongo example Powered by Sanders @2022
